@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "name": "webserver",
+  "description": "web server, nodejs",
+  "version": "1.0.0",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sleafye/WebNodeServer.git"
+  },
+  "author": "sleaf.ye",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sleafye/WebNodeServer/issues"
+  },
+  "homepage": "https://github.com/sleafye/WebNodeServer#readme"
+}
