@@ -12,12 +12,34 @@
 let express = require("express");
 let ws = require("ws")
 let path = require("path");
+// let qs = require("querystring");
 let app = express();
 
 console.log("__dirname:", __dirname);
 let staticPath = path.join(__dirname, "/static")
 console.log("staticPath:", staticPath);
 app.use(express.static(staticPath));
+// app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+app.use(function(req, res, next) {
+	let str = '';
+	req.on('data', (chunk)=> {
+		str += chunk;
+	})
+	req.on('end', ()=>{
+		// console.log(str);
+		if (str) {
+			try {
+				req.body = JSON.parse(str);
+			} catch (error) {
+				console.error(error);
+			}
+		}
+		next();
+	})
+})
+
 
 app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -34,6 +56,15 @@ app.get("/test", function (request, response) {
     // 底层会打包成http协议的回应，发送给客户端
     response.send("SUCCESS!");
 });
+
+app.post("/testPost", function (request, response) {
+    console.log(request.headers);
+	console.log(request.body);
+	// console.log(request.body.app_id);
+	
+    // 底层会打包成http协议的回应，发送给客户端
+    response.send('{"status": 0}');
+})
 
 
 app.listen(6080);
